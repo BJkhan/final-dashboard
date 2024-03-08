@@ -17,6 +17,8 @@ import {
 } from "../Constants/ProductConstants";
 import axios from "axios";
 import { logout } from "./userActions";
+import apiUrl from "../../apiConf";
+
 
 export const listProducts = () => async (dispatch, getState) => {
   try {
@@ -32,7 +34,7 @@ export const listProducts = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`api/api/products/all`, config);
+    const { data } = await axios.get(`${apiUrl}/api/products/all`, config);
 
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -65,7 +67,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       },
     };
 
-    await axios.delete(`api/api/products/${id}`, config);
+    await axios.delete(`${apiUrl}/api/products/${id}`, config);
 
     dispatch({ type: PRODUCT_DELETE_SUCCESS });
   } catch (error) {
@@ -122,7 +124,7 @@ export const createProduct =
       };
 
       const { data } = await axios.post(
-        `api/api/products/`,
+        `${apiUrl}/api/products/`,
         {
           name,
           price,
@@ -168,7 +170,7 @@ export const createProduct =
 export const editProduct = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_EDIT_REQUEST });
-    const { data } = await axios.get(`api/api/products/${id}`);
+    const { data } = await axios.get(`${apiUrl}/api/products/${id}`);
     dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data });
   } catch (error) {
     const message =
@@ -202,7 +204,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `api/api/products/${product._id}`,
+      `${apiUrl}/api/products/${product._id}`,
       product,
       config
     );

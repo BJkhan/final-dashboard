@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from "react-toastify";
 import Toast from "./../LoadingError/Toast";
-
+import apiUrl from "./../../apiConf"
 const ToastObjects = {
     pauseOnFocusLoss: false,
     draggable: false,
@@ -15,7 +15,7 @@ const MethodsPay = () => {
   useEffect(() => {
     const fetchPaymentOptions = async () => {
       try {
-        const response = await fetch("api/api/paymentOptions");
+        const response = await fetch(`${apiUrl}/api/paymentOptions`);
         const data = await response.json();
         setPaymentOptions(data.payOptions);
       } catch (error) {
@@ -27,10 +27,10 @@ const MethodsPay = () => {
 
   const togglePaymentOption = async (id) => {
     try {
-      await fetch(`api/api/paymentOptions/${id}/toggle`, {
+      await fetch(`${apiUrl}/api/paymentOptions/${id}/toggle`, {
         method: "PUT",
       });
-      const response = await fetch("api/api/paymentOptions");
+      const response = await fetch(`${apiUrl}/api/paymentOptions`);
       const data = await response.json();
       setPaymentOptions(data.payOptions);
     } catch (error) {

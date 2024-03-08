@@ -11,6 +11,7 @@ import {
 } from "../Constants/OrderConstants";
 import { logout } from "./userActions";
 import axios from "axios";
+import apiUrl from './../../apiConf';
 
 // list All Orders
 export const listOrders = () => async (dispatch, getState) => {
@@ -27,7 +28,7 @@ export const listOrders = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`api/api/orders/all`, config);
+    const { data } = await axios.get(`${apiUrl}/api/orders/all`, config);
 
     dispatch({ type: ORDER_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -60,7 +61,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`api/api/orders/${id}`, config);
+    const { data } = await axios.get(`${apiUrl}/api/orders/${id}`, config);
     dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     const message =
@@ -93,7 +94,7 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `api/api/orders/${order._id}/delivered`,
+      `${apiUrl}/api/orders/${order._id}/delivered`,
       {},
       config
     );
@@ -128,7 +129,7 @@ export const changeOrderStatus = (order, orderStatus) => async (dispatch, getSta
     };
 
     const { data } = await axios.put(
-      `api/api/orders/${order._id}/status`,
+      `${apiUrl}/api/orders/${order._id}/status`,
       { orderStatus: orderStatus },
       config
     );

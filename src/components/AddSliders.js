@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { toast } from "react-toastify";
 import Toast from './LoadingError/Toast';
+import apiUrl from '../apiConf';
+
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -43,7 +45,7 @@ const Sliders = () => {
         slidesWithNumbers: slidesWithNumbers
       };
   
-      const result = await fetch('/api/slides', {
+      const result = await fetch(`${apiUrl}/api/slides`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

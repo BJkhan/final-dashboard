@@ -8,6 +8,7 @@ import {
   PRICE_LIST_SUCCESS,
 } from "../Constants/priceConstants";
 import { toast } from "react-toastify";
+import apiUrl from './../../apiConf';
 
 
 // list taxes
@@ -15,7 +16,7 @@ export const listPrices = () => async (dispatch, getState) => {
   try {
     dispatch({ type: PRICE_LIST_REQUEST });
 
-    const { data } = await axios.get(`api/api/price/settings`);
+    const { data } = await axios.get(`${apiUrl}/api/price/settings`);
 
     dispatch({ type: PRICE_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -40,7 +41,7 @@ export const editPrices = (shipping, tax) => async (dispatch) => {
   };
   try {
     dispatch({ type: PRICE_EDIT_REQUEST });
-    const { data } = await axios.put(`api/api/price/settings`, shipping, tax);
+    const { data } = await axios.put(`${apiUrl}/api/price/settings`, shipping, tax);
     if (data) {
       toast.success('Taxes updated successfully', ToastObjects);
       dispatch({ type: PRICE_EDIT_SUCCESS, payload: data });
